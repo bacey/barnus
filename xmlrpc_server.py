@@ -1,37 +1,20 @@
 from xmlrpc.server import SimpleXMLRPCServer
-from xmlrpc.server import SimpleXMLRPCRequestHandler
 
+from blinkt import set_pixel, set_brightness, show, clear, set_all, set_clear_on_exit, get_pixel
 
-# Restrict to a particular path.
-class RequestHandler(SimpleXMLRPCRequestHandler):
-    rpc_paths = ('/RPC2',)
-
-
-#SERVER_IP = '192.168.0.19'
+# SERVER_IP = '192.168.0.19'
+# SERVER_IP = '192.168.0.73'
 SERVER_IP = 'localhost'
 
-
-# Create server
-with SimpleXMLRPCServer((SERVER_IP, 8000),
-                        requestHandler=RequestHandler) as server:
+with SimpleXMLRPCServer((SERVER_IP, 8000), allow_none=True) as server:
     server.register_introspection_functions()
 
-    # Register pow() function; this will use the value of
-    # pow.__name__ as the name, which is just 'pow'.
-    server.register_function(pow)
+    server.register_function(set_brightness)
+    server.register_function(clear)
+    server.register_function(show)
+    server.register_function(set_all)
+    server.register_function(get_pixel)
+    server.register_function(set_pixel)
+    server.register_function(set_clear_on_exit)
 
-    # Register a function under a different name
-    def adder_function(x, y):
-        return x + y
-    server.register_function(adder_function, 'add')
-
-    # Register an instance; all the methods of the instance are
-    # published as XML-RPC methods (in this case, just 'mul').
-    class MyFuncs:
-        def mul(self, x, y):
-            return x * y
-
-    server.register_instance(MyFuncs())
-
-    # Run the server's main loop
     server.serve_forever()
