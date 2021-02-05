@@ -5,8 +5,8 @@ from pynput.keyboard import Listener
 
 BARNUS_RASPBERRY_PI_IP = '192.168.0.73'
 BARNUS_RASPBERRY_PI = 'raspberrypi'
-# SERVER_IP = BARNUS_RASPBERRY_PI_IP
-SERVER_IP = 'localhost'
+SERVER_IP = BARNUS_RASPBERRY_PI_IP
+# SERVER_IP = 'localhost'
 
 # sudo ufw allow 8000
 # sudo ufw status verbose
