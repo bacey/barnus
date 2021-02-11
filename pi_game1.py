@@ -1,4 +1,5 @@
 import xmlrpc.client
+from enum import Enum
 
 from pynput.keyboard import Key
 from pynput.keyboard import Listener
@@ -13,15 +14,36 @@ SERVER_IP = BARNUS_RASPBERRY_PI_IP
 rpi = xmlrpc.client.ServerProxy(f'http://{SERVER_IP}:8000')
 
 
-def turn_on(pixel):
+class Color(Enum):
+    WHITE = (255, 255, 255)
+    RED = (255, 0, 0)
+    LIME = (0, 255, 0)
+    BLUE = (0, 0, 255)
+    BLACK = (0, 0, 0)
+    YELLOW = (255, 255, 0)
+    CYAN = (0, 255, 255)
+    MAGENTA = (255, 0, 255)
+    SILVER = (192, 192, 192)
+    GRAY = (128, 128, 128)
+    MAROON = (128, 0, 0)
+    OLIVE = (128, 128, 0)
+    GREEN = (0, 128, 0)
+    PURPLE = (128, 0, 128)
+    TEAL = (0, 128, 128)
+    NAVY = (0, 0, 128)
+
+
+def turn_on(pixel, color=Color.WHITE):
     """
     Kigyújt, felgyújt egy lámpát (pixelt).
     :param pixel: Hanyadik lámpát (pixelt) gyújtsa fel.
     0-tól kezdődik a lámpák számozása (angolul "indexelése").
+    :param color: Milyen színű legyen a lámpa. Ha a "color" paraméter nélkül hívod meg
+    a "turn_on" függvényt, akkor az alapértelmezett szín a fehér lesz.
     """
     rpi.set_brightness(0.1)
     rpi.clear()
-    rpi.set_pixel(pixel, 255, 255, 255)
+    rpi.set_pixel(pixel, *color)
     rpi.show()
 
 
