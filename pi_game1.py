@@ -99,9 +99,10 @@ def handle_key(key):
         # Ha False-t adunk vissza, akkor a program kilép.
         return False
     elif is_key(key, 'f'):
-        turn_on(0)
+        turn_on(0, Color.BLUE)
     elif is_key(key, 'a'):
         turn_on(3)
+        turn_on(2, Color.GREEN)
     else:
         turn_on(1)
 
