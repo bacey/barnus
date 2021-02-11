@@ -43,7 +43,7 @@ def turn_on(pixel, color=Color.WHITE):
     """
     rpi.set_brightness(0.1)
     rpi.clear()
-    rpi.set_pixel(pixel, *color)
+    rpi.set_pixel(pixel, *color.value)
     rpi.show()
 
 
